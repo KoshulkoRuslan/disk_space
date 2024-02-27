@@ -15,8 +15,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  double _diskSpace = 0;
-  Map<Directory, double> _directorySpace = {};
+  double? _diskSpace = 0;
+  Map<Directory, double?> _directorySpace = {};
 
   @override
   void initState() {
@@ -25,12 +25,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> initDiskSpace() async {
-    double diskSpace = 0;
+    double? diskSpace = 0;
 
     diskSpace = await DiskSpace.getFreeDiskSpace;
 
     List<Directory> directories;
-    Map<Directory, double> directorySpace = {};
+    Map<Directory, double?> directorySpace = {};
 
     if (Platform.isIOS) {
       directories = [await getApplicationDocumentsDirectory()];
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         (list) async => list ?? [await getApplicationDocumentsDirectory()],
       );
     } else {
-      return [];
+      return;
     }
 
     for (var directory in directories) {
